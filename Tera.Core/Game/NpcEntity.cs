@@ -3,10 +3,10 @@
 namespace Tera.Game
 {
     // NPCs and Mosters - Tera doesn't distinguish these
-    public class Npc : Entity
+    public class NpcEntity : Entity
     {
-        public Npc(SpawnNpcServerMessage message)
-            :base(message.Id)
+        public NpcEntity(SpawnNpcServerMessage message)
+            : base(message.Id)
         {
         }
     }

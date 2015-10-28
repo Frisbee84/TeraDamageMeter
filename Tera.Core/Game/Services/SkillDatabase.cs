@@ -9,15 +9,17 @@ namespace Tera.Game
     // Currently this is limited to the name of the skill
     public class SkillDatabase
     {
-        private readonly Dictionary<RaceGenderClass, List<UserSkill>> _userSkilldata = new Dictionary<RaceGenderClass, List<UserSkill>>();
+        private readonly Dictionary<RaceGenderClass, List<UserSkill>> _userSkilldata =
+            new Dictionary<RaceGenderClass, List<UserSkill>>();
 
         public SkillDatabase(string filename)
         {
             var lines = File.ReadLines(filename);
-            var listOfParts = lines.Select(s => s.Split(new[] { ' ' }, 5));
+            var listOfParts = lines.Select(s => s.Split(new[] {' '}, 5));
             foreach (var parts in listOfParts)
             {
-                var skill = new UserSkill(int.Parse(parts[0]), new RaceGenderClass(parts[1], parts[2], parts[3]), parts[4]);
+                var skill = new UserSkill(int.Parse(parts[0]), new RaceGenderClass(parts[1], parts[2], parts[3]),
+                    parts[4]);
                 if (!_userSkilldata.ContainsKey(skill.RaceGenderClass))
                     _userSkilldata[skill.RaceGenderClass] = new List<UserSkill>();
                 _userSkilldata[skill.RaceGenderClass].Add(skill);
@@ -25,7 +27,7 @@ namespace Tera.Game
         }
 
         // skillIds are reused across races and class, so we need a RaceGenderClass to disambiguate them
-        public UserSkill Get(User user, int skillId)
+        public UserSkill Get(UserEntity user, int skillId)
         {
             var raceGenderClass = user.RaceGenderClass;
             var comparer = new Helpers.ProjectingEqualityComparer<Skill, int>(x => x.Id);
@@ -48,7 +50,7 @@ namespace Tera.Game
             return null;
         }
 
-        public UserSkill GetOrPlaceholder(User user, int skillId)
+        public UserSkill GetOrPlaceholder(UserEntity user, int skillId)
         {
             if (user == null)
                 throw new ArgumentNullException("user");
@@ -60,7 +62,7 @@ namespace Tera.Game
             return new UserSkill(skillId, user.RaceGenderClass, "Unknown " + skillId);
         }
 
-        public string GetName(User user, int skillId)
+        public string GetName(UserEntity user, int skillId)
         {
             return GetOrPlaceholder(user, skillId).Name;
         }
