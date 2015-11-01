@@ -11,5 +11,16 @@ namespace Tera.DamageMeter.UI.WPF
         {
             InitializeComponent();
         }
+
+        private void button_Menu_click(object sender, RoutedEventArgs e)          
+        {
+
+        }
+
+        private void button_Reset_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
     }
 }
